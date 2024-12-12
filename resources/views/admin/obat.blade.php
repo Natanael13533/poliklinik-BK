@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="d-flex justify-content-between align-items-center">
-    <h1 class="h3 mb-3"><strong>Pasien</strong></h1>
+    <h1 class="h3 mb-3"><strong>Obat</strong></h1>
     <div class="mb-2">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahObat">Tambah Obat</button>
     </div>

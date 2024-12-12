@@ -61,7 +61,7 @@
         <div class="card flex-fill">
             <div class="card-header">
 
-                <h5 class="card-title mb-0">Tabel Pasien</h5>
+                <h5 class="card-title mb-0">Tabel Poli</h5>
             </div>
             <table class="table table-hover my-0">
                 <thead>
@@ -120,7 +120,7 @@
         <div class="card flex-fill">
             <div class="card-header">
 
-                <h5 class="card-title mb-0">Tabel Dokter</h5>
+                <h5 class="card-title mb-0">Tabel Obat</h5>
             </div>
             <table class="table table-hover my-0">
                 <thead>
