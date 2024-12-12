@@ -19,12 +19,35 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function pasien(): View
+    {
+        return view('auth.pasien.login');
+    }
+
     /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+        // $credentials = $request->only('email', 'password');
+
+        // if (auth()->attempt(array_merge($credentials, ['role' => $role]))) {
+        //     $request->session()->regenerate();
+
+        //     // Redirect based on the user's role
+        //     if (Auth::user()->role === 'admin') {
+        //         return redirect()->route('admin.dashboard');
+        //     } elseif (Auth::user()->role === 'dokter') {
+        //         return redirect()->route('dokter.dashboard');
+        //     }
+
+        //     // Default redirection for regular users
+        //     return redirect()->intended(route('dashboard', absolute: false));
+        // }
+
+        // // Handle invalid login
+        // return redirect()->back();
 
         $request->session()->regenerate();
 

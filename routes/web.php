@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminDokterController;
+use App\Http\Controllers\Admin\AdminObatController;
+use App\Http\Controllers\Admin\AdminPoliController;
 use App\Http\Controllers\Dokter\DokterController;
+use App\Http\Controllers\Pasien\PasienController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +39,32 @@ Route::middleware(['auth', 'dokterMiddleware'])->group(function () {
 // admin routes
 Route::middleware(['auth', 'adminMiddleware'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    Route::controller(PasienController::class)->group(function () {
+        Route::get('/admin/pasien', 'index')->name('admin.pasien');
+        Route::post('/admin/pasien', 'store')->name('admin.pasien.add');
+        Route::put('/admin/pasien/update/{id}', 'update')->name('admin.pasien.update');
+        Route::delete('/admin/pasien/delete/{id}', 'destroy')->name('admin.pasien.destroy');
+    });
+
+    Route::controller(AdminDokterController::class)->group(function () {
+        Route::get('/admin/dokter', 'index')->name('admin.dokter');
+        Route::post('/admin/dokter', 'store')->name('admin.dokter.add');
+        Route::put('/admin/dokter/update/{id}', 'update')->name('admin.dokter.update');
+        Route::delete('/admin/dokter/delete/{id}', 'destroy')->name('admin.dokter.destroy');
+    });
+
+    Route::controller(AdminPoliController::class)->group(function () {
+        Route::get('/admin/poli', 'index')->name('admin.poli');
+        Route::post('/admin/poli', 'store')->name('admin.poli.add');
+        Route::put('/admin/poli/update/{id}', 'update')->name('admin.poli.update');
+        Route::delete('/admin/poli/delete/{id}', 'destroy')->name('admin.poli.destroy');
+    });
+
+    Route::controller(AdminObatController::class)->group(function () {
+        Route::get('/admin/obat', 'index')->name('admin.obat');
+        Route::post('/admin/obat', 'store')->name('admin.obat.add');
+        Route::put('/admin/obat/update/{id}', 'update')->name('admin.obat.update');
+        Route::delete('/admin/obat/delete/{id}', 'destroy')->name('admin.obat.destroy');
+    });
 });

@@ -1,12 +1,40 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register.pasien.add') }}">
         @csrf
 
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Nama')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- Alamat -->
+        <div class="mt-4">
+            <x-input-label for="alamat" :value="__('Alamat')" />
+            <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autofocus autocomplete="alamat" />
+            <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
+        </div>
+
+        <!-- Nomor KTP -->
+        <div class="mt-4">
+            <x-input-label for="no_ktp" :value="__('No. Ktp')" />
+            <x-text-input id="no_ktp" class="block mt-1 w-full" type="text" name="no_ktp" :value="old('no_ktp')" required autofocus autocomplete="no_ktp" />
+            <x-input-error :messages="$errors->get('no_ktp')" class="mt-2" />
+        </div>
+
+        <!-- Nomor Handphone -->
+        <div class="mt-4">
+            <x-input-label for="no_hp" :value="__('No. HP')" />
+            <x-text-input id="no_hp" class="block mt-1 w-full" type="text" name="no_hp" :value="old('no_hp')" required autofocus autocomplete="no_hp" />
+            <x-input-error :messages="$errors->get('no_hp')" class="mt-2" />
+        </div>
+
+        <!-- Nomor Rekam Medis -->
+        <div class="mt-4">
+            <x-input-label for="no_rm" :value="__('No. RM')" />
+            <x-text-input id="no_rm" class="block mt-1 w-full" type="text" name="no_rm" :value="old('no_rm')" required autofocus autocomplete="no_rm" />
+            <x-input-error :messages="$errors->get('no_rm')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -40,7 +68,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login', ['role' => 'pasien']) }}">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login.pasien') }}">
                 {{ __('Already registered?') }}
             </a>
 

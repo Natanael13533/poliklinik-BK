@@ -22,6 +22,11 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function pasien(): View
+    {
+        return view('auth.pasien.register');
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -31,14 +36,33 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'no_ktp' => ['required', 'integer', 'digits_between:1,10'],
+            'no_hp' => ['required', 'integer', 'digits_between:1,10'],
+            'no_rm' => ['required', 'string', 'max:10'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // if ($request->input('role') !== 'pasien') {
+        //     return redirect()->back()->withErrors(['role' => 'Only pasien can register.']);
+        // }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => 'pasien',
             'password' => Hash::make($request->password),
+        ]);
+
+        // Create a corresponding Pasien record
+        $pasien = $user->pasien()->create([
+            'nama' => $user->name,
+            'alamat' => $request->alamat,
+            'no_ktp' => $request->no_ktp,
+            'no_hp' => $request->no_hp,
+            'no_rm' => $request->no_rm,
+            'user_id' => $user->id,
         ]);
 
         event(new Registered($user));

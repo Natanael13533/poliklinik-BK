@@ -48,7 +48,7 @@
                     <h3 class="section-subheading text-muted">pendftaran pasien dan dokter</h3>
                 </div>
                 <div class="row text-center">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
@@ -56,7 +56,7 @@
                         <h4 class="my-3">Pasien</h4>
                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                         <a
-                            href="{{ route('login') }}"
+                            href="{{ route('login.pasien') }}"
                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                         >
                             <button class="btn btn-primary text-dark">
@@ -64,7 +64,7 @@
                             </button>
                         </a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
@@ -80,7 +80,7 @@
                             </button>
                         </a>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
@@ -88,14 +88,14 @@
                         <h4 class="my-3">Admin</h4>
                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                         <a
-                            href="{{ route('login') }}"
+                            href="{{ route('login', ['role' => 'admin']) }}"
                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                         >
                             <button class="btn btn-primary text-dark">
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk Sebagai Admin
                             </button>
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>

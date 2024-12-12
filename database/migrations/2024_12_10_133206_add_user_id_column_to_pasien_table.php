@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('obat', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_obat', 50)->required();
-            $table->string('kemasan', 35)->required();
-            $table->integer('harga')->required();
-            $table->timestamps();
+        Schema::table('pasien', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->required()->after('no_rm');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('obat');
+        Schema::table('pasien', function (Blueprint $table) {
+            //
+        });
     }
 };
