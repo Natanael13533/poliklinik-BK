@@ -12,7 +12,7 @@ class AdminObatController extends Controller
 {
     public function index()
     {
-        $obat = Obat::select('id', 'nama_obat', 'kemasan', 'harga')->paginate(5);
+        $obat = Obat::select('id', 'nama_obat', 'kemasan', 'harga')->paginate(10);
 
         return view('admin.obat', ['obatList' => $obat]);
     }

@@ -47,7 +47,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Rest API Django Project:
+Poliklinik BK Project:
 * Menggunakan Laravel 11
 * Menggunakan Laravel Breeze sebagai proses autentikasi
 * multi user autentikasi

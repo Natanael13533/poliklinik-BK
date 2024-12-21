@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Dokter;
+use App\Models\Poli;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +18,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $poli = Poli::select('id','nama_poli', 'keterangan')->get();
         return view('profile.edit', [
             'user' => $request->user(),
+            'poli' => $poli
         ]);
     }
 
@@ -28,11 +32,20 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        // if ($request->user()->isDirty('email')) {
+        //     $request->user()->email_verified_at = null;
+        // }
 
         $request->user()->save();
+
+        $dokter = $request->user()->dokter;
+
+        $dokter->nama = $request->name;
+        $dokter->alamat = $request->alamat;
+        $dokter->no_hp = $request->no_hp;
+        $dokter->id_poli = $request->id_poli;
+
+        $dokter->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

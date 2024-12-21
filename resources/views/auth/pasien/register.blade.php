@@ -30,13 +30,6 @@
             <x-input-error :messages="$errors->get('no_hp')" class="mt-2" />
         </div>
 
-        <!-- Nomor Rekam Medis -->
-        <div class="mt-4">
-            <x-input-label for="no_rm" :value="__('No. RM')" />
-            <x-text-input id="no_rm" class="block mt-1 w-full" type="text" name="no_rm" :value="old('no_rm')" required autofocus autocomplete="no_rm" />
-            <x-input-error :messages="$errors->get('no_rm')" class="mt-2" />
-        </div>
-
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />

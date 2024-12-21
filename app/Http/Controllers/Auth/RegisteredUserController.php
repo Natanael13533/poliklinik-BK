@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -39,7 +40,6 @@ class RegisteredUserController extends Controller
             'alamat' => ['required', 'string', 'max:255'],
             'no_ktp' => ['required', 'integer', 'digits_between:1,10'],
             'no_hp' => ['required', 'integer', 'digits_between:1,10'],
-            'no_rm' => ['required', 'string', 'max:10'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -64,6 +64,11 @@ class RegisteredUserController extends Controller
             'no_rm' => $request->no_rm,
             'user_id' => $user->id,
         ]);
+
+        $yyyymm = Carbon::parse($pasien->created_at)->format('Ym');
+        $pasien->no_rm = "{$yyyymm}-{$pasien->id}";
+
+        $pasien->save();
 
         event(new Registered($user));
 

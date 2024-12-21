@@ -76,10 +76,21 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="no_rm" class="col-sm-2 col-form-label">No. Room</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="no_rm" name="no_rm"/>
-                            @error('no_rm')
+                        <label for="email" class="col-sm-2 col-form-label">email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" name="email"/>
+                            @error('email')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="password" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password"/>
+                            @error('password')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>
@@ -111,7 +122,7 @@
                         <th class="d-none d-xl-table-cell">Alamat</th>
                         <th class="d-none d-xl-table-cell">No. KTP</th>
                         <th class="d-none d-md-table-cell">No. HP</th>
-                        <th class="d-none d-md-table-cell">No. Room</th>
+                        <th class="d-none d-md-table-cell">No. RM</th>
                         <th class="d-none d-md-table-cell">Aksi</th>
                     </tr>
                 </thead>

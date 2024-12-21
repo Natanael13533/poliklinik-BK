@@ -26,7 +26,16 @@ class PasienCreateRequest extends FormRequest
             'alamat' => 'required',
             'no_ktp' => 'required',
             'no_hp' => 'max:10|required',
-            'no_rm' => 'max:10|required',
+            'user_id' => 'nullable',
+            'email' => 'required|email', // Exclude current user if updating
+            'password' => 'nullable|min:8'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'user_id' => 'user'
         ];
     }
 
@@ -38,7 +47,9 @@ class PasienCreateRequest extends FormRequest
             'alamat.required' => 'Alamat wajib di isi',
             'no_hp.required' => 'No. HP wajib di isi',
             'no_ktp.required' => 'No. KTP wajib di isi',
-            'no_rm.required' => 'No. Room wajib di isi',
+            'email.required' => 'Email wajib di isi',
+            'email.email' => 'Format email tidak valid',
+            'password.min' => 'Password minimal :min karakter',
         ];
     }
 }

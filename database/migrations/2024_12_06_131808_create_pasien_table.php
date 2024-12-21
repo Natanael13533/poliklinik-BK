@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('alamat')->required();
             $table->integer('no_ktp')->required();
             $table->integer('no_hp')->required();
-            $table->char('no_rm', 10)->required();
+            $table->char('no_rm', 10)->nullable();
             $table->timestamps();
         });
     }

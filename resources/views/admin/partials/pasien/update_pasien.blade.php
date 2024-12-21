@@ -47,10 +47,10 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="no_rm" class="col-sm-2 col-form-label">No. Room</label>
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="no_rm" name="no_rm" value="{{ $pasien->no_rm }}"/>
-                            @error('no_rm')
+                            <input type="email" class="form-control" id="email" name="email" value="{{ $pasien->user->email }}"/>
+                            @error('email')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>

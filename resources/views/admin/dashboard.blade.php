@@ -39,7 +39,7 @@
                         <th class="d-none d-xl-table-cell">Alamat</th>
                         <th class="d-none d-xl-table-cell">No. KTP</th>
                         <th class="d-none d-md-table-cell">No. HP</th>
-                        <th class="d-none d-md-table-cell">No. Room</th>
+                        <th class="d-none d-md-table-cell">No. RM</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,7 +109,7 @@
                             <td>{{$dokter->nama}}</td>
                             <td class="d-none d-xl-table-cell">{{$dokter->alamat}}</td>
                             <td class="d-none d-md-table-cell">{{$dokter->no_hp}}</td>
-                            <td class="d-none d-md-table-cell">{{$dokter->poli['nama_poli']}}</td>
+                            <td class="d-none d-md-table-cell">{{Str::words($dokter->poli->keterangan, 10, '...')}}</td>
                         </tr>
                     @endforeach
                 </tbody>
