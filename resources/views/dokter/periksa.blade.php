@@ -61,19 +61,20 @@
     document.addEventListener('DOMContentLoaded', function () {
         const selectObat = document.getElementById('id_obat');
         const biayaPeriksaInput = document.getElementById('biaya_periksa');
-        const fixedAmount = 150000;
+        const fixedAmount = 150000; // Fixed additional biaya
 
         selectObat.addEventListener('change', function () {
-            const selectedOption = this.options[this.selectedIndex];
-            const obatHarga = parseInt(selectedOption.getAttribute('data-harga')) || 0;
+            let total = fixedAmount; // Start with the fixed amount
 
-            // Calculate total biaya periksa
-            const total = obatHarga + fixedAmount;
+            // Iterate over selected options and sum up their 'data-harga'
+            Array.from(selectObat.selectedOptions).forEach(option => {
+                const harga = parseInt(option.getAttribute('data-harga')) || 0;
+                total += harga;
+            });
 
-            // Update the biaya_periksa input
+            // Update the biaya_periksa input with the formatted total
             biayaPeriksaInput.value = `Rp.${total.toLocaleString('id-ID')},00`;
         });
     });
-
 </script>
 @endsection

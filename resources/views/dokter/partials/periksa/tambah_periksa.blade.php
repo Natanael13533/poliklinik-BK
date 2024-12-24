@@ -49,10 +49,11 @@
                 <div class="mb-3 row">
                     <label for="id_obat" class="col-sm-2 col-form-label">Obat</label>
                     <div class="col-sm-9">
-                        <select name="id_obat"" id="id_obat" class="form-control" >
-                            <option value="">Pilih Obat</option>
+                        <select name="id_obat[]" id="id_obat" class="form-control" multiple>
                             @foreach ($obat as $item)
-                                <option value="{{$item->id}}" data-harga="{{$item->harga}}">{{$item->nama_obat}} || Rp.{{$item->harga}},00</option>
+                                <option value="{{ $item->id }}" data-harga="{{ $item->harga }}">
+                                    {{ $item->nama_obat }} || Rp.{{ $item->harga }},00
+                                </option>
                             @endforeach
                         </select>
                         @error('id_obat')

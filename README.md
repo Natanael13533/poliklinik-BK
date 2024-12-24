@@ -122,6 +122,18 @@ Pengakasesan halaman register dan login:
   jika, sudah melakukan import sql, maka bisa mengakses admin dashboard dengan <br/>
   email : admin@gmail.com <br/>
   password : admin123 
+* Email dan Password dokter <br/>
+  jika, sudah melakukan import sql, maka bisa mengakses dokter dashboard dengan <br/>
+  email1 : james@gmail.com <br/>
+  password : james123 <br/>
+  email2 : bond@gmail.com <br/>
+  password : bond12345 
+* Email dan Password pasien <br/>
+  jika, sudah melakukan import sql, maka bisa mengakses pasien dashboard dengan <br/>
+  email1 : bambang@gmail.com <br/>
+  password : bambang123 <br/>
+  email2 : phineas@gmail.com <br/>
+  password : phineas123 
 
   
 

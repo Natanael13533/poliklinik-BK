@@ -110,10 +110,8 @@
                         <th class="d-none d-xl-table-cell">No. Antrian</th>
                         <th class="d-none d-xl-table-cell">Poli</th>
                         <th class="d-none d-xl-table-cell">Dokter</th>
-                        <th class="d-none d-xl-table-cell">Hari</th>
-                        <th class="d-none d-xl-table-cell">Jam Mulai</th>
-                        <th class="d-none d-md-table-cell">Jam Selesai</th>
                         <th class="d-none d-md-table-cell">Status</th>
+                        <th class="d-none d-xl-table-cell">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,16 +122,13 @@
                             <td class="d-none d-xl-table-cell">{{ $daftar->no_antrian }}</td>
                             <td class="d-none d-xl-table-cell">{{ $daftar->jadwal->dokter->poli['nama_poli'] }}</td>
                             <td class="d-none d-xl-table-cell">{{ $daftar->jadwal->dokter['nama'] }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $daftar->jadwal->hari }}</td>
-                            <td class="d-none d-xl-table-cell">{{ $daftar->jadwal->jam_mulai }}</td>
-                            <td class="d-none d-md-table-cell">{{ $daftar->jadwal->jam_selesai }}</td>
-                            <td>
-                                @if($daftar->status == 1)
-                                    <span class="badge bg-success">Sudah Diperiksa</span>
-                                @else
-                                    <span class="badge bg-danger">Belum Diperiksa</span>
-                                @endif
-                            </td>
+                            @if ($daftar->status == 1)
+                                <td class="d-none d-xl-table-cell">Rp. {{ $daftar->periksa->biaya_periksa }}, 00</td>
+                                <td><span class="badge bg-success">Sudah Diperiksa</span></td>
+                            @else
+                                <td class="d-none d-xl-table-cell">Belum Diperiksa oleh Dokter</td>
+                                <td><span class="badge bg-danger">Belum Diperiksa</span></td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

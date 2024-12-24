@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Pasien;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DaftarPoliCreateRequest;
 use App\Models\DaftarPoli;
+use App\Models\DetailPeriksa;
 use App\Models\JadwalPeriksa;
+use App\Models\Periksa;
 use App\Models\Poli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,16 @@ class DaftarPoliController extends Controller
 {
     public function index()
     {
-        $daftar = DaftarPoli::with(['pasien', 'jadwal'])->paginate(5);
+        // $daftar = DaftarPoli::with(['pasien', 'jadwal'])->paginate(5);
+        $pasienId = Auth::user()->pasien->id;
+
+        $daftar = DaftarPoli::with(['pasien', 'jadwal', 'periksa'])
+        ->whereHas('pasien', function ($query) use ($pasienId) {
+            $query->where('id', $pasienId);
+        })
+        ->paginate(10);
+
+        // $detail = Periksa::where('id_daftar_poli', $daftar->id)->first();
         $poli = Poli::select('id','nama_poli', 'keterangan')->get();
         return view('pasien.daftar_poli', ['daftarList' => $daftar, 'poli' => $poli]);
     }

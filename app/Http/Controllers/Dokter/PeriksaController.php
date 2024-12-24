@@ -19,22 +19,28 @@ class PeriksaController extends Controller
         $dokterId = Auth::user()->dokter->id;
 
         $daftar = DaftarPoli::with(['jadwal', 'pasien'])
-        ->where('status', '0')
-        ->whereHas('jadwal.dokter', function ($query) use ($dokterId) {
-            $query->where('id', $dokterId);
-        })
-        ->orderby('no_antrian', 'asc')
-        ->paginate(5);
+            ->where('status', '0')
+            ->whereHas('jadwal.dokter', function ($query) use ($dokterId) {
+                $query->where('id', $dokterId);
+            })
+            ->orderby('no_antrian', 'asc')
+            ->paginate(5);
         $obat = Obat::select('id', 'nama_obat', 'kemasan', 'harga')->get();
         return view('dokter.periksa', ['obat' => $obat, 'daftarList' => $daftar]);
     }
 
     public function store(PeriksaCreateRequest $request, $id)
     {
-        $obat = Obat::findOrFail($request->id_obat);
-        $daftar = DaftarPoli::findOrFail($id);
 
-        $biayaPeriksa = $obat->harga + 150000;
+        // Fetch selected `obat` details
+        $obatIds = $request->id_obat; // This is an array of `id_obat`
+        $obatDetails = Obat::whereIn('id', $obatIds)->get();
+
+        // Calculate total cost (sum of obat prices + fixed fee)
+        $totalHargaObat = $obatDetails->sum('harga');
+        $biayaPeriksa = $totalHargaObat + 150000; // Add fixed fee
+
+        $daftar = DaftarPoli::findOrFail($id);
 
         $periksa = new Periksa();
         $periksa->id_daftar_poli = $daftar->id;
@@ -47,11 +53,13 @@ class PeriksaController extends Controller
 
         $periksa->save();
 
-        $detail = new DetailPeriksa();
-        $detail->id_obat = $request->id_obat;
-        $detail->id_periksa = $periksa->id;
-
-        $detail->save();
+         // Create DetailPeriksa for each selected obat
+         foreach ($obatDetails as $obat) {
+            $detail = new DetailPeriksa();
+            $detail->id_obat = $obat->id;
+            $detail->id_periksa = $periksa->id;
+            $detail->save();
+        }
 
         if($periksa && $detail) {
             Session::flash('status', 'success');
@@ -65,16 +73,24 @@ class PeriksaController extends Controller
     {
         $dokterId = Auth::user()->dokter->id;
 
-        $detail = DetailPeriksa::with(['periksa', 'obat'])
-        ->whereHas('periksa.daftar', function ($query) {
-            $query->where('status', '1');
-        })
-        ->whereHas('periksa.daftar.jadwal.dokter', function ($query) use ($dokterId) {
-            $query->where('id', $dokterId);
-        })
-        ->get();
-
-        // dd($detail->toSql(), $detail->getBindings()); // View the SQL and the bindings
+        // Get all patients with their examination details
+        $detail = DetailPeriksa::with(['periksa.daftar.pasien', 'obat'])
+            ->whereHas('periksa.daftar', function ($query) {
+                $query->where('status', '1');
+            })
+            ->whereHas('periksa.daftar.jadwal.dokter', function ($query) use ($dokterId) {
+                $query->where('id', $dokterId);
+            })
+            ->get()
+            ->groupBy('periksa.daftar.pasien.id')
+            ->map(function ($patientDetails) {
+                // Group examinations by periksa_id to maintain all details
+                $examinations = $patientDetails->groupBy('id_periksa');
+                return [
+                    'patient_info' => $patientDetails->first()->periksa->daftar->pasien,
+                    'examinations' => $examinations
+                ];
+            });
 
         return view('dokter.riwayat_pasien', ['detailList' => $detail]);
     }

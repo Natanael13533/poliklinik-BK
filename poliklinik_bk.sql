@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 05:39 AM
+-- Generation Time: Dec 24, 2024 at 05:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,16 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('budi@gmail.com|127.0.0.1', 'i:1;', 1734512729),
+('budi@gmail.com|127.0.0.1:timer', 'i:1734512729;', 1734512729),
+('testing@gmail.com|127.0.0.1', 'i:1;', 1734428146),
+('testing@gmail.com|127.0.0.1:timer', 'i:1734428146;', 1734428146);
+
 -- --------------------------------------------------------
 
 --
@@ -58,8 +68,21 @@ CREATE TABLE `daftar_poli` (
   `keluhan` text NOT NULL,
   `no_antrian` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `daftar_poli`
+--
+
+INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`, `created_at`, `updated_at`, `status`) VALUES
+(1, 6, 1, 'Sakit Gigi', 1, '2024-12-19 02:59:30', '2024-12-21 06:55:45', 1),
+(2, 6, 5, 'Sakit Bagian Perut Atas', 2, '2024-12-21 07:01:44', '2024-12-23 01:30:29', 1),
+(3, 7, 5, 'Sakit Maag', 3, '2024-12-23 01:38:34', '2024-12-23 01:40:07', 1),
+(4, 6, 15, 'Sakit Gigi Lagi', 4, '2024-12-23 02:14:50', '2024-12-23 02:15:54', 1),
+(5, 6, 14, 'Sakit Gigi Lagi Astaga', 5, '2024-12-23 02:37:38', '2024-12-23 05:33:49', 1),
+(6, 7, 4, 'Sakit Gigi Sebelah Kanan', 6, '2024-12-24 07:14:06', '2024-12-24 07:15:19', 1);
 
 -- --------------------------------------------------------
 
@@ -74,6 +97,23 @@ CREATE TABLE `detail_periksa` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `detail_periksa`
+--
+
+INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, '2024-12-21 06:55:45', '2024-12-21 06:55:45'),
+(2, 2, 10, '2024-12-23 01:30:29', '2024-12-23 01:30:29'),
+(3, 3, 9, '2024-12-23 01:40:07', '2024-12-23 01:40:07'),
+(4, 4, 1, '2024-12-23 02:15:54', '2024-12-23 02:15:54'),
+(5, 5, 1, '2024-12-23 05:33:49', '2024-12-23 05:33:49'),
+(6, 5, 2, '2024-12-23 05:33:49', '2024-12-23 05:33:49'),
+(7, 5, 3, '2024-12-23 05:33:49', '2024-12-23 05:33:49'),
+(8, 6, 1, '2024-12-24 07:15:19', '2024-12-24 07:15:19'),
+(9, 6, 3, '2024-12-24 07:15:19', '2024-12-24 07:15:19'),
+(10, 6, 4, '2024-12-24 07:15:19', '2024-12-24 07:15:19'),
+(11, 6, 6, '2024-12-24 07:15:19', '2024-12-24 07:15:19');
 
 -- --------------------------------------------------------
 
@@ -97,7 +137,8 @@ CREATE TABLE `dokter` (
 --
 
 INSERT INTO `dokter` (`id`, `nama`, `alamat`, `no_hp`, `user_id`, `id_poli`, `created_at`, `updated_at`) VALUES
-(2, 'Dr. James', 'jl. Singa no. 10', 85746542, 7, 1, '2024-12-10 05:42:18', '2024-12-10 05:43:31');
+(2, 'Dr. James', 'jl. Singa no. 5', 85746542, 7, 1, '2024-12-10 05:42:18', '2024-12-23 02:13:30'),
+(4, 'Dr. Bond', 'Jl. Kartini No. 1', 12312312, 18, 2, '2024-12-18 00:34:45', '2024-12-18 00:34:45');
 
 -- --------------------------------------------------------
 
@@ -131,6 +172,20 @@ CREATE TABLE `jadwal_periksa` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `jadwal_periksa`
+--
+
+INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Senin', '12:00:00', '17:00:00', '2024-12-18 00:23:32', '2024-12-18 00:23:32'),
+(2, 2, 'Selasa', '12:00:00', '17:00:00', '2024-12-18 00:23:55', '2024-12-18 00:32:49'),
+(4, 2, 'Rabu', '11:00:00', '17:00:00', '2024-12-18 02:04:11', '2024-12-18 02:04:11'),
+(5, 4, 'Senin', '08:00:00', '11:00:00', '2024-12-19 03:05:17', '2024-12-19 03:05:17'),
+(6, 4, 'Kamis', '10:00:00', '15:30:00', '2024-12-19 03:05:30', '2024-12-19 03:05:30'),
+(11, 2, 'Senin', '09:00:00', '11:00:00', '2024-12-19 21:59:27', '2024-12-19 21:59:27'),
+(14, 2, 'Selasa', '08:00:00', '10:00:00', '2024-12-19 22:15:25', '2024-12-19 22:15:25'),
+(15, 2, 'jumat', '10:00:00', '15:00:00', '2024-12-23 02:13:58', '2024-12-23 02:13:58');
+
 -- --------------------------------------------------------
 
 --
@@ -152,19 +207,8 @@ CREATE TABLE `jobs` (
 --
 -- Table structure for table `job_batches`
 --
-
-CREATE TABLE `job_batches` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `total_jobs` int(11) NOT NULL,
-  `pending_jobs` int(11) NOT NULL,
-  `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext NOT NULL,
-  `options` mediumtext DEFAULT NULL,
-  `cancelled_at` int(11) DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
-  `finished_at` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Error reading structure for table poliklinik_bk.job_batches: #1932 - Table &#039;poliklinik_bk.job_batches&#039; doesn&#039;t exist in engine
+-- Error reading data for table poliklinik_bk.job_batches: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#039;FROM `poliklinik_bk`.`job_batches`&#039; at line 1
 
 -- --------------------------------------------------------
 
@@ -195,7 +239,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (33, '2024_12_06_132035_create_periksa_table', 2),
 (34, '2024_12_06_132119_create_detail_periksa_table', 2),
 (35, '2024_12_09_114154_add_user_id_column_to_dokter_table', 2),
-(36, '2024_12_10_133206_add_user_id_column_to_pasien_table', 3);
+(36, '2024_12_10_133206_add_user_id_column_to_pasien_table', 3),
+(39, '2024_12_18_104942_add_status_column_to_daftar_poli_table', 4),
+(40, '2024_12_20_044613_add_unique_rule_in_jadwal_periksa_table', 5);
 
 -- --------------------------------------------------------
 
@@ -217,7 +263,16 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`, `created_at`, `updated_at`) VALUES
-(1, 'Paracetamol 500 mg', 'Tablet 500 mg', 23000, '2024-12-11 21:38:13', '2024-12-11 21:38:13');
+(1, 'Paracetamol 500 mg', 'Tablet 500 mg', 23000, '2024-12-11 21:38:13', '2024-12-11 21:38:13'),
+(2, 'Ibuprofen 400 mg', 'Tablet', 15000, '2024-12-21 06:08:50', '2024-12-21 06:11:49'),
+(3, 'Amoxicillin 500 mg', 'Kapsul', 20000, '2024-12-21 06:09:24', '2024-12-21 06:09:24'),
+(4, 'Metronidazole 500 mg', 'Tablet', 25000, '2024-12-21 06:09:46', '2024-12-21 06:09:46'),
+(5, 'Chlorhexidine Gluconate 0,12%', 'Botol 150 ml', 45000, '2024-12-21 06:10:16', '2024-12-21 06:10:16'),
+(6, 'Povidone-Iodine 1%', 'Botol 100 ml', 37000, '2024-12-21 06:10:35', '2024-12-21 06:10:35'),
+(7, 'Nystatin Oral Suspension', 'Botol 100 ml', 80000, '2024-12-21 06:11:29', '2024-12-21 06:11:29'),
+(8, 'Vitamin C 500 mg', 'Tablet', 23000, '2024-12-21 06:11:42', '2024-12-21 06:11:42'),
+(9, 'Mylanta 150 ml', 'botol 150 ml', 35000, '2024-12-23 01:28:09', '2024-12-23 01:28:09'),
+(10, 'Lansoprazole 15 mg', 'Kapsul', 27000, '2024-12-23 01:28:43', '2024-12-23 01:28:43');
 
 -- --------------------------------------------------------
 
@@ -231,7 +286,7 @@ CREATE TABLE `pasien` (
   `alamat` varchar(255) NOT NULL,
   `no_ktp` int(11) NOT NULL,
   `no_hp` int(11) NOT NULL,
-  `no_rm` char(10) NOT NULL,
+  `no_rm` char(10) DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -242,7 +297,8 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id`, `nama`, `alamat`, `no_ktp`, `no_hp`, `no_rm`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Budi', 'jl. Halmahera No. 10', 356769520, 285746542, '23', 8, '2024-12-10 07:36:23', '2024-12-10 07:36:23');
+(6, 'Bambang', 'Jl. Halmahera Raya No. 10', 12312323, 273223412, '202412-6', 15, '2024-12-16 07:14:17', '2024-12-16 07:14:17'),
+(7, 'phineas', 'Jl. Semangka No. 15', 45645645, 123123123, '202412-7', 16, '2024-12-16 23:32:51', '2024-12-16 23:32:51');
 
 -- --------------------------------------------------------
 
@@ -271,6 +327,18 @@ CREATE TABLE `periksa` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `periksa`
+--
+
+INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya_periksa`, `created_at`, `updated_at`) VALUES
+(1, 1, '2024-12-21', 'Ibuprofen 400 mg dengan dosis 1 tablet diminum 3 kali sehari setelah makan.', 165000, '2024-12-21 06:55:45', '2024-12-21 06:55:45'),
+(2, 2, '2024-12-23', 'Lansoprazole 15 mg dengan dosis 1 kapsul diminum sebelum makan, 1 kali sehari.', 177000, '2024-12-23 01:30:29', '2024-12-23 01:30:29'),
+(3, 3, '2024-12-23', 'Mylanta 150 ml, dengan dosis Diminum 1-2 tablet atau 1 sendok makan cairan, 1 jam setelah makan atau saat gejala muncul.', 185000, '2024-12-23 01:40:07', '2024-12-23 01:40:07'),
+(4, 4, '2024-12-23', 'test', 173000, '2024-12-23 02:15:54', '2024-12-23 02:15:54'),
+(5, 5, '2024-12-23', 'testing sajah', 208000, '2024-12-23 05:33:49', '2024-12-23 05:33:49'),
+(6, 6, '2024-12-24', 'Minum Air Putih dan semua obat dimakan setelah makan.', 255000, '2024-12-24 07:15:19', '2024-12-24 07:15:19');
 
 -- --------------------------------------------------------
 
@@ -314,8 +382,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('GKGbmH4cxibJV7xqZMvGbfwgoh3q8DTzN6SiipsK', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTnFCd0gwNWhCU1d1cmNDcnFyTHpwUGc4TU9GdFExOXI2dnFTSlJSNSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9vYmF0Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9', 1733978314),
-('xuVLgSM480uDvoKhoRdgRWZm9xEi7WREsFf1AnBD', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZ3dON3JqVmI3VktmTE1VN0g5Z0dtZFowd2hPSEtYMjNjWHQ5eXNTaCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=', 1733841621);
+('SLabArXLVTtSvbCaxj5g22YzUPo5zT9C7Mp2nq59', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMms4N0ljRUNvTUVWWU5RZzFpY0ZORlA4bk9XbTRVbzV2S2FOcjlYZiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=', 1735058783);
 
 -- --------------------------------------------------------
 
@@ -342,8 +409,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Pasien', 'pasien@gmail.com', 'pasien', NULL, '$2y$12$WuCbVl6G9ipjMQ84lc./d.zUdrMeUI0YxURczlZ8R1vqc0MCRvZZK', NULL, '2024-12-04 05:20:11', '2024-12-04 05:20:11'),
 (2, 'Admin', 'admin@gmail.com', 'admin', NULL, '$2y$12$7NOGMBO/iZ3dJe.53ab9f.rMd1t84UdIzF.SWlu0M8ZNWZEsf3Y32', NULL, '2024-12-04 05:21:08', '2024-12-04 05:21:08'),
-(7, 'Dr. James', 'james@gmail.com', 'dokter', NULL, '$2y$12$nqSerpAt8cl9EN/ngq1SKelLOWCXaMbBe3OrQj.tMJZpj4rYiNENq', NULL, '2024-12-10 05:42:18', '2024-12-10 05:42:18'),
-(8, 'Budi', 'budi@gmail.com', 'pasien', NULL, '$2y$12$7WKrLoF89Tz5bI2/DFYu2evSzqYaRWal16F1nPzHwz1/N6kVcmrXe', NULL, '2024-12-10 07:36:22', '2024-12-10 07:36:22');
+(7, 'Dr. James', 'james@gmail.com', 'dokter', NULL, '$2y$12$BfneyUPUnzKDnU/MtHwoMewAe7t5SvaTL7VCur70Zw9nPTWYaoArG', NULL, '2024-12-10 05:42:18', '2024-12-17 02:26:14'),
+(15, 'Bambang', 'bambang@gmail.com', 'pasien', NULL, '$2y$12$V0EgZ967LtehrM.OXwu3R.sasYOfvhG5tse4PDk5gWbQQrg1v/6ZK', NULL, '2024-12-16 07:14:17', '2024-12-16 07:14:17'),
+(16, 'phineas', 'phineas@gmail.com', 'pasien', NULL, '$2y$12$4SlY116AogpHPyWM2.G9feHfrQgnzrmV9tDVI8Pav9bKjo7bLWuhi', NULL, '2024-12-16 23:32:51', '2024-12-16 23:32:51'),
+(18, 'Dr. Bond', 'bond@gmail.com', 'dokter', NULL, '$2y$12$ubdrzjDhZmaTqWSz00eXGeiwpJHca8LcGbnQ.Ll83rZdQLs4GeAfy', NULL, '2024-12-18 00:34:45', '2024-12-18 00:34:45');
 
 --
 -- Indexes for dumped tables
@@ -397,6 +466,7 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `jadwal_periksa`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_hari_jam` (`hari`,`jam_mulai`,`jam_selesai`),
   ADD KEY `jadwal_periksa_id_dokter_foreign` (`id_dokter`);
 
 --
@@ -405,12 +475,6 @@ ALTER TABLE `jadwal_periksa`
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_index` (`queue`);
-
---
--- Indexes for table `job_batches`
---
-ALTER TABLE `job_batches`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -473,19 +537,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -497,7 +561,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -509,25 +573,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `poli`
@@ -539,7 +603,7 @@ ALTER TABLE `poli`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
