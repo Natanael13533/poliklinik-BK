@@ -110,8 +110,8 @@
                         <th class="d-none d-xl-table-cell">No. Antrian</th>
                         <th class="d-none d-xl-table-cell">Poli</th>
                         <th class="d-none d-xl-table-cell">Dokter</th>
-                        <th class="d-none d-md-table-cell">Status</th>
-                        <th class="d-none d-xl-table-cell">Detail</th>
+                        <th class="d-none d-md-table-cell">Harga</th>
+                        <th class="d-none d-xl-table-cell">Status</th>
                     </tr>
                 </thead>
                 <tbody>
