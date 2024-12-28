@@ -77,7 +77,15 @@ Berikut cara untuk mensetting project ini di mesin lokal.
    ```sh
    git clone https://github.com/Natanael13533/poliklinik-BK.git
    ```
-2. Buka .env.example dan rename .env.example menjadi .env, (isikan sesuai dengan nama database, port, user, dan password)
+2. Jalankan perintah composer
+   ```sh
+   composer install
+   ```
+3. Build NPM
+   ```sh
+   npm run build
+   ```
+4. Buka .env.example dan rename .env.example menjadi .env, (isikan sesuai dengan nama database, port, user, dan password)
    ```js
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
@@ -86,12 +94,12 @@ Berikut cara untuk mensetting project ini di mesin lokal.
    DB_USERNAME=database_user
    DB_PASSWORD=
    ```
-3. Jalankan perintah migrate pada terminal
+5. Jalankan perintah migrate pada terminal (lakukan migrate jika tidak menggunakan import sql)
    ```sh
    php artisan migrate
    ```
-4. Import SQL file, dengan membuka xampp lalu nyalakan apache dan Mysql, lalu buka localhost/phpmyadmin, login jika ada password, jika sudah import data sql ke dalam database yang sudah di buat yang memiliki nama yang sama pada DB_DATABASE pada file .env
-5. Jalankan perintah untuk menjalankan program
+6. Import SQL file, dengan membuka xampp lalu nyalakan apache dan Mysql, lalu buka localhost/phpmyadmin, login jika ada password, jika sudah import data sql ke dalam database yang sudah di buat yang memiliki nama yang sama pada DB_DATABASE pada file .env
+7. Jalankan perintah untuk menjalankan program
    ```sh
    php artisan serve
    ```
