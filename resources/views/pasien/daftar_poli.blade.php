@@ -46,8 +46,8 @@
                     <div class="col-sm-5">
                         <select name="id_poli"" id="id_poli" class="form-control" >
                             <option value="">Pilih Poli</option>
-                            @foreach ($poli as $item)
-                                <option value="{{$item->id}}">{{$item->nama_poli}}</option>
+                            @foreach ($poli as $id => $nama_poli)
+                                <option value="{{$id}}">{{$nama_poli}}</option>
                             @endforeach
                         </select>
                         @error('id_poli')

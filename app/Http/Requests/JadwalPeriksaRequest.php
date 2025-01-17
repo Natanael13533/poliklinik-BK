@@ -23,15 +23,15 @@ class JadwalPeriksaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'hari' => 'required',
+            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
-            'hari_jam' => [
-                Rule::unique('jadwal_periksas')
-                    ->where('hari', $this->hari)
-                    ->where('jam_mulai', $this->jam_mulai)
-                    ->where('jam_selesai', $this->jam_selesai),
-            ],
+            // 'hari_jam' => [
+            //     Rule::unique('jadwal_periksas')
+            //         ->where('hari', $this->hari)
+            //         ->where('jam_mulai', $this->jam_mulai)
+            //         ->where('jam_selesai', $this->jam_selesai),
+            // ],
         ];
     }
 
@@ -39,9 +39,10 @@ class JadwalPeriksaRequest extends FormRequest
     {
         return [
             'hari.required' => 'Hari wajib di isi',
+            'hari.in' => 'Tolong pilih hari yang sesuai',
             'jam_mulai.required' => 'Jam Mulai wajib di isi',
             'jam_selesai.required' => 'Jam Selesai wajib di isi',
-            'hari_jam.unique' => 'Tolong pilih Hari dan Jam yang tidak bertabrakan',
+            // 'hari_jam.unique' => 'Tolong pilih Hari dan Jam yang tidak bertabrakan',
         ];
     }
 }

@@ -114,4 +114,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('jam_mulai').addEventListener('change', function() {
+        let timeValue = this.value;
+        if (timeValue.length === 5) { // If no seconds are included (e.g., "12:12")
+            this.value = timeValue + ":00"; // Append ":00" for seconds
+        }
+    });
+
+    document.getElementById('jam_selesai').addEventListener('change', function() {
+        let timeValue = this.value;
+        if (timeValue.length === 5) { // If no seconds are included (e.g., "12:12")
+            this.value = timeValue + ":00"; // Append ":00" for seconds
+        }
+    });
+</script>
 @endsection

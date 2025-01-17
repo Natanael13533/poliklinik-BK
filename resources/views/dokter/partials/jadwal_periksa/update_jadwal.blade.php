@@ -22,7 +22,7 @@
                     <div class="mb-3 row">
                         <label for="jam_mulai" class="col-sm-2 col-form-label">Jam Mulai</label>
                         <div class="col-sm-10">
-                            <textarea type="text" class="form-control" id="jam_mulai" name="jam_mulai">{{ $jadwal->jam_mulai }}</textarea>
+                            <input type="time" class="form-control" id="jam_mulai" name="jam_mulai" value="{{ $jadwal->jam_mulai }}"/>
                             @error('jam_mulai')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -31,7 +31,7 @@
                     <div class="mb-3 row">
                         <label for="jam_selesai" class="col-sm-2 col-form-label">Jam Selesai</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="jam_selesai" name="jam_selesai" value="{{ $jadwal->jam_selesai }}"/>
+                            <input type="time" class="form-control" id="jam_selesai" name="jam_selesai" value="{{ $jadwal->jam_selesai }}"/>
                             @error('jam_selesai')
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror

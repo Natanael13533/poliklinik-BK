@@ -27,7 +27,7 @@ class DaftarPoliController extends Controller
         ->paginate(10);
 
         // $detail = Periksa::where('id_daftar_poli', $daftar->id)->first();
-        $poli = Poli::select('id','nama_poli', 'keterangan')->get();
+        $poli = Poli::pluck('nama_poli', 'id');
         return view('pasien.daftar_poli', ['daftarList' => $daftar, 'poli' => $poli]);
     }
 
@@ -45,13 +45,29 @@ class DaftarPoliController extends Controller
 
     public function store(DaftarPoliCreateRequest $request)
     {
-        $daftar_count = DaftarPoli::count();
         $daftar = new DaftarPoli();
+
+        // Retrieve the current poli by its ID
+        $poli = Poli::find($request->id_poli);
+
+        // Check if the poli exists
+        if (!$poli) {
+            return redirect()->back()->withErrors(['error' => 'Poli not found']);
+        }
+
+        // Get the highest `no_antrian` for the selected poli from today's registrations
+        $latest_antrian = DaftarPoli::with('jadwal.dokter.poli')->
+                                    whereHas('jadwal.dokter', function ($query) use ($poli) {
+                                        $query->where('id_poli', $poli->id);
+                                    })->max('no_antrian');
+
+        // Increment the queue number or start at 1 if no entries exist
+        $no_antrian = $latest_antrian ? $latest_antrian + 1 : 1;
 
         $daftar->keluhan = $request->keluhan;
         $daftar->id_jadwal = $request->id_jadwal;
         $daftar->id_pasien = Auth::user()->pasien->id;
-        $daftar->no_antrian = $daftar_count + 1;
+        $daftar->no_antrian = $no_antrian;
 
         $daftar->save();
 
