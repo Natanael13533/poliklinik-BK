@@ -10,7 +10,13 @@
                     <i class="align-middle" data-feather="settings"></i>
                 </a>
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <span class="text-dark">{{ Auth::user()->name }}</span>
+                    @if (Auth::user()->image == null)
+                        <img src="{{ asset('images/default_profile.jpg') }}" class="avatar img-fluid rounded me-1" alt="{{Auth::user()->name}}" />
+                        <span class="text-dark">{{Auth::user()->name}}</span>
+                    @else
+                        <img src="{{ asset('storage/' . Auth::user()->image) }}" class="avatar img-fluid rounded me-1" alt="{{Auth::user()->name}}" />
+                        <span class="text-dark">{{Auth::user()->name}}</span>
+                    @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <form method="POST" action="{{ route('logout') }}">

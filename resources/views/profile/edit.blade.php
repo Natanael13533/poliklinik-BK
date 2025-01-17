@@ -47,9 +47,20 @@
                     @csrf
                 </form>
 
-                <form method="post" action="{{ route('profile.update') }}">
+                <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
+
+                    <div class="mb-3 row">
+                        <label for="image" class="col-sm-2 col-form-label">Gambar</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="file" id="image" name="image" />
+                        </div>
+                    </div>
+
+                    @error('image')
+                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    @enderror
 
                     {{-- <x-input-label for="name" :value="__('Name')" />
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />

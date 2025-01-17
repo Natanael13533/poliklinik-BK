@@ -82,9 +82,9 @@ Berikut cara untuk mensetting project ini di mesin lokal.
    composer install
    ```
 3. Install npm 
-  ```sh
-  npm install
-  ```
+   ```sh
+   npm install
+   ```
 4. Build NPM
    ```sh
    npm run build

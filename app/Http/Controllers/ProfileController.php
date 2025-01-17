@@ -8,6 +8,7 @@ use App\Models\Poli;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -36,6 +37,13 @@ class ProfileController extends Controller
         //     $request->user()->email_verified_at = null;
         // }
 
+        // if on image is only used when updating the image
+
+        if ($request->hasFile('image')) {
+            File::delete(storage_path('app/public/' . $request->user()->image));
+            $request->user()->image = $request->file('image')->store('images', 'public');
+        }
+
         $request->user()->save();
 
         $dokter = $request->user()->dokter;
@@ -58,6 +66,8 @@ class ProfileController extends Controller
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
+
+        File::delete(storage_path('app/public/' . Auth::user()->image));
 
         $user = $request->user();
 
